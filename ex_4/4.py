@@ -3,7 +3,9 @@ class InventoryManagement:
     '''Create class of InventoryManagement
        Create constractor of the class with parameter
        define Empty dictionary
-       purchase_product(): Get teo input from the user
+       purchase_product(): Get two input from the user and purchase product details to dictionary
+       display_product_stock(): display product stock
+       sales_processes():
     '''
     index = 1
     def __init__(self):
