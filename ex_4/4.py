@@ -1,32 +1,22 @@
-from builtins import int, set, list, vars
-from itertools import product
-from pdb import lasti2lineno
-
-from mock.mock import self
-
 
 class InventoryManagement:
     '''Create class of InventoryManagement
        Create constractor of the class with parameter
-
+       define Empty dictionary
+       purchase_product(): Get teo input from the user
     '''
-
+    index = 1
     def __init__(self):
         self.mainDict = {}
-        self.subDict = {'price': 400, 'quantity': 10, 'subtotal': 4000}
-        self.i = 1
+
 
     def purchase_product(self):
         product_price = int(input("Enter price of product :"))
         product_quantity = int(input("Enter quantity of product :"))
-        self.subDict['price'] = product_price
-        self.subDict['quantity'] = product_quantity
-        self.subDict['subtotal'] = (product_price * product_quantity)
-        # self.mainDict[self.i]=self.subDict
-        self.mainDict[self.i] = {'price': product_price, 'quantity': product_quantity,
+        self.mainDict[self.index] = {'price': product_price, 'quantity': product_quantity,
                                  'subtotal': (product_price * product_quantity)}
-        self.i += 1
-        print(self.mainDict)
+        self.index += 1
+        self.display_product_stock()
 
     def display_product_stock(self):
         print("{:<10} {:<10} {:<10} {:<10}".format('key', 'price', 'quantity', 'subtotal'))
@@ -52,7 +42,7 @@ class InventoryManagement:
                 else:
                     tmp_quantity=0
                     quantity = value['quantity']
-                    if sales_product>quantity:
+                    if sales_product>=quantity:
                         tmp_quantity=quantity
                         sales_product=sales_product-tmp_quantity
                     else:
@@ -66,7 +56,6 @@ class InventoryManagement:
                         self.display_product_stock()
                         if sales_product==0:
                             break
-                        # self.mainDict.popitem(last=False)
                     else:
                         self.mainDict[key] = value
                         break
