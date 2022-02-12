@@ -33,8 +33,8 @@ link = file.getElementsByTagName('link')
 script = file.getElementsByTagName('script')
 # all item attributes
 print('\nAll attributes: Template')
-for elem in template:
-  print(elem.attributes['id'].value)
+for element in template:
+  print(element.attributes['id'].value)
 print('\nAll attributes: xpath')
 for tag in xpath:
     print(tag.attributes['position'].value)

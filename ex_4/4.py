@@ -1,23 +1,26 @@
+from ufw.util import valid_address
+
 
 class InventoryManagement:
     '''Create class of InventoryManagement
        Create constractor of the class with parameter
        define Empty dictionary
-       purchase_product(): Get two input from the user and purchase product details to dictionary
+       purchase_product(): Get two input from the user and add purchase product details to dictionary
        display_product_stock(): display product stock
-       sales_processes():
+       sales_processes():get input from the user and update quantity of the product
     '''
-    index = 1
+
     def __init__(self):
         self.mainDict = {}
-
+        self.index=0
 
     def purchase_product(self):
+        self.index += 1
         product_price = int(input("Enter price of product :"))
         product_quantity = int(input("Enter quantity of product :"))
         self.mainDict[self.index] = {'price': product_price, 'quantity': product_quantity,
                                  'subtotal': (product_price * product_quantity)}
-        self.index += 1
+
         self.display_product_stock()
 
     def display_product_stock(self):
@@ -26,22 +29,19 @@ class InventoryManagement:
             print("{:<10} {:<10} {:<10} {:<10}".format(key, value['price'], value['quantity'], value['subtotal']))
 
     def sales_processes(self):
-        sales_product = int(input("Enter the qty you wanna sell: "))
-        sorted(self.mainDict, reverse=False)
+        sales_product = int(input("Enter the qty of sell: "))
         sum_quantity = 0
-        for key, value in self.mainDict.items():
-            sum_quantity += sum([(v) for k, v in value.items() if k == 'quantity'])
+
+        delete_key=[]
+        sum_quantity = sum(d['quantity'] for d in self.mainDict.values() if d)
+        # for key, value in self.mainDict.items():
+        #     sum_quantity += sum([(v) for k, v in value.items() if k == 'quantity'])
 
         for key, value in self.mainDict.items():
             if sales_product > sum_quantity:
-                print("Sorry, not enough quantity.\nStart the purchase order procedure pls!\n")
+                print("Sorry, not enough quantity.\nStart the purchase order procedure please!\n")
                 break
             else:
-                if value['quantity'] == 0:
-                    self.mainDict.popitem(last=False)
-                    self.display_product_stock()
-                    break
-                else:
                     tmp_quantity=0
                     quantity = value['quantity']
                     if sales_product>=quantity:
@@ -49,18 +49,20 @@ class InventoryManagement:
                         sales_product=sales_product-tmp_quantity
                     else:
                         tmp_quantity=sales_product
-
+                        sales_product=0
 
                     value['quantity'] = value['quantity'] - tmp_quantity
                     value['subtotal'] = (value['quantity'] * value['price'])
-                    if value['quantity'] == 0:
-                        del self.mainDict[key]
-                        self.display_product_stock()
-                        if sales_product==0:
-                            break
-                    else:
-                        self.mainDict[key] = value
-                        break
+                    self.mainDict[key] = value
+
+                    if value['quantity']==0:
+                        delete_key.append(key)
+
+        # new_dict = {key: val for key, val in self.mainDict.items() if val['quantity'] != 0}
+        for delete in delete_key:
+            del self.mainDict[delete]
+        # self.mainDict = new_dict
+        self.display_product_stock()
 
 
 

@@ -1,5 +1,4 @@
 Order No,Customer,SKU,Qty,Price,Address1,Address2,Zipcode,City,Country
-SO001,Mohit Patel,STARCD173501,1,25,Address 0002,Address2 0001,67806,Amritsar,United States of America
 SO001,Mohit Patel,STARCD173502,2,30,Address 0002,Address2 0001,67806,Amritsar,United States of America
 SO001,Mohit Patel,STARCD173503,5,87,Address 0002,Address2 0001,67806,Amritsar,United States of America
 SO001,Mohit Patel,STARCD173504,4,45,Address 0002,Address2 0001,67806,Amritsar,United States of America
